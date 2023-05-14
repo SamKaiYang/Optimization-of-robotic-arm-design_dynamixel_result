@@ -70,7 +70,8 @@ for tag in tags:
 import tensorflow as tf
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 import matplotlib.pyplot as plt
-
+import numpy as np
+# import scipy.interpolate.spline as spline
 # 指定 event 文件的路徑
 event_files = ["./Mar18_12-50-25_ws2030/events.out.tfevents.1679140225.ws2030", \
                "./May12_15-23-09_d84979fad1fc_DDQN/events.out.tfevents.1683897789.d84979fad1fc", \
@@ -98,8 +99,12 @@ for i, event_file in enumerate(event_files):
     for tag in tags:
         events = event_acc.Scalars(tag)
         steps = [event.step for event in events]
+        # value = [event.value for event in events]
+        # if tag == "trained-model/train_step_reward/":
+        #     for i in events:
+        #         if i.value <= -200:
+        #             i.value = -200
         value = [event.value for event in events]
-        
         # 繪製在對應的子圖上
         if tag == "trained-model/Loss_per_frame/":
             axs[0, 0].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
@@ -107,6 +112,13 @@ for i, event_file in enumerate(event_files):
             axs[0, 0].set_ylabel("Loss")
             axs[0, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
         elif tag == "trained-model/train_step_reward/":
+            for j in range(len(value)):
+                if value[j] <= -200:
+                    value[j] = -200
+                elif value[j] >= +250:
+                    value[j] = +200
+            # value_linspace = np.linspace(steps.min(),steps.max(),200000)
+            # value_smooth = spline(steps, value,value_linspace)
             axs[0, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[0, 1].set_xlabel("Step")
             axs[0, 1].set_ylabel("Reward")
@@ -116,7 +128,7 @@ for i, event_file in enumerate(event_files):
             axs[1, 0].set_xlabel("Step")
             axs[1, 0].set_ylabel("Loss")
             axs[1, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
-        elif tag == "trained-model/Average_Return/":
+        elif tag == "trained-model/Episode_Return/":
             axs[1, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 1].set_xlabel("Step")
             axs[1, 1].set_ylabel("Reward")
@@ -164,16 +176,22 @@ for i, event_file in enumerate(event_files):
             axs[0, 0].set_ylabel("Loss")
             axs[0, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
         elif tag == "trained-model/train_step_reward/":
+            for j in range(len(value)):
+                if value[j] <= -200:
+                    value[j] = -200
+                elif value[j] >= +250:
+                    value[j] = +200
             axs[0, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[0, 1].set_xlabel("Step")
             axs[0, 1].set_ylabel("Reward")
             axs[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
+
         elif tag == "trained-model/loss_log/":
             axs[1, 0].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 0].set_xlabel("Step")
             axs[1, 0].set_ylabel("Loss")
             axs[1, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
-        elif tag == "trained-model/Average_Return/":
+        elif tag == "trained-model/Episode_Return/":
             axs[1, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 1].set_xlabel("Step")
             axs[1, 1].set_ylabel("Reward")
