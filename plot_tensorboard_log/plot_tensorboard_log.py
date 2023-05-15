@@ -72,10 +72,23 @@ from tensorboard.backend.event_processing.event_accumulator import EventAccumula
 import matplotlib.pyplot as plt
 import numpy as np
 # import scipy.interpolate.spline as spline
+from scipy.interpolate import make_interp_spline
+
+def smooth(value, weight=0.85): #weight是平滑度，tensorboard 默认0.6
+    scalar = value
+    last = scalar[0]
+    smoothed = []
+    for point in scalar:
+        smoothed_val = last * weight + (1 - weight) * point
+        smoothed.append(smoothed_val)
+        last = smoothed_val
+
+    return smoothed
+
 # 指定 event 文件的路徑
-event_files = ["./Mar18_12-50-25_ws2030/events.out.tfevents.1679140225.ws2030", \
-               "./May12_15-23-09_d84979fad1fc_DDQN/events.out.tfevents.1683897789.d84979fad1fc", \
-               "./May12_15-18-04_ws2030_C51/events.out.tfevents.1683897484.ws2030"]
+event_files = ["./0514/May13_09-10-38_ws2020_DQN/events.out.tfevents.1683961838.ws2020", \
+               "./0514/May12_15-23-09_d84979fad1fc_DDQN/events.out.tfevents.1683897789.d84979fad1fc", \
+               "./0514/May12_15-18-04_ws2030_C51/events.out.tfevents.1683897484.ws2030"]
 
 # 設定圖表的樣式
 plt_themes = ["seaborn-darkgrid", "ggplot", "dark_background", "bmh", "fivethirtyeight"]
@@ -117,9 +130,8 @@ for i, event_file in enumerate(event_files):
                     value[j] = -200
                 elif value[j] >= +250:
                     value[j] = +200
-            # value_linspace = np.linspace(steps.min(),steps.max(),200000)
-            # value_smooth = spline(steps, value,value_linspace)
-            axs[0, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
+            value_smooth = smooth(value,0.6)
+            axs[0, 1].plot(steps, value_smooth, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[0, 1].set_xlabel("Step")
             axs[0, 1].set_ylabel("Reward")
             axs[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
@@ -129,7 +141,8 @@ for i, event_file in enumerate(event_files):
             axs[1, 0].set_ylabel("Loss")
             axs[1, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
         elif tag == "trained-model/Episode_Return/":
-            axs[1, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
+            value_smooth = smooth(value,0.6)
+            axs[1, 1].plot(steps, value_smooth, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 1].set_xlabel("Step")
             axs[1, 1].set_ylabel("Reward")
             axs[1, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
@@ -177,11 +190,16 @@ for i, event_file in enumerate(event_files):
             axs[0, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
         elif tag == "trained-model/train_step_reward/":
             for j in range(len(value)):
-                if value[j] <= -200:
-                    value[j] = -200
-                elif value[j] >= +250:
-                    value[j] = +200
-            axs[0, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
+                if value[j] <= -400:
+                    value[j] = -400
+                elif value[j] >= +400:
+                    value[j] = +400
+            value_smooth = smooth(value,0.6)
+            # steps_array = np.array(steps)
+            # value_array = np.array(value)
+            # step_linspace = np.linspace(steps_array.min(),steps_array.max(),10000000)
+            # value_smooth = make_interp_spline(steps_array, value_array)( step_linspace)
+            axs[0, 1].plot(steps, value_smooth, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[0, 1].set_xlabel("Step")
             axs[0, 1].set_ylabel("Reward")
             axs[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
@@ -192,7 +210,8 @@ for i, event_file in enumerate(event_files):
             axs[1, 0].set_ylabel("Loss")
             axs[1, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
         elif tag == "trained-model/Episode_Return/":
-            axs[1, 1].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
+            value_smooth = smooth(value,0.6)
+            axs[1, 1].plot(steps, value_smooth, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 1].set_xlabel("Step")
             axs[1, 1].set_ylabel("Reward")
             axs[1, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
