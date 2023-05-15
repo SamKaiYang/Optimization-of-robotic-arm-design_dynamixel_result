@@ -160,7 +160,7 @@ for i, event_file in enumerate(event_files):
 plt.savefig('plot_tensorborad_log.png', dpi=300)
 plt.show()
 # '''
-
+data_box = []
 # 個別plot
 # 從每個 event 文件中讀取數據，並繪製在對應的子圖上
 for i, event_file in enumerate(event_files):
@@ -203,7 +203,7 @@ for i, event_file in enumerate(event_files):
             axs[0, 1].set_xlabel("Step")
             axs[0, 1].set_ylabel("Reward")
             axs[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
-
+            data_box.append(value)
         elif tag == "trained-model/loss_log/":
             axs[1, 0].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 0].set_xlabel("Step")
@@ -228,4 +228,30 @@ for i, event_file in enumerate(event_files):
     # 顯示圖表
     plt.savefig('plot_tensorborad_log_'+Log[i]+'.png', dpi=300)
     plt.show()
+# '''
+
+
+labels = ['DQN', 'DDQN', 'C51']
+# 確保標籤名稱與資料的長度相同
+print(len(data_box))
+assert len(labels) == len(data_box), "Dimensions of labels and data must be compatible"
+
+# print(data_box)
+
+box_colors = ['lightpink','lightgreen','lightblue']
+# 繪製多筆資料的四分位距圖並設定標籤名稱
+box = plt.boxplot(data_box, patch_artist=True, labels=labels)
+# 繪製多筆資料的四分位距圖並設定標籤名稱
+# plt.boxplot(data_box, labels=labels)
+# 為每個箱子設置顏色
+for patch, color in zip(box['boxes'], box_colors):
+    patch.set(facecolor=color)
+# 添加標題和軸標籤
+plt.title('Box Plot')
+plt.xlabel('DRL')
+plt.ylabel('Reward')
+
+plt.savefig('plot_tensorborad_log_train_Box_Plot.png', dpi=300)
+# 顯示圖形
+plt.show()
 # '''
