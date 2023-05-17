@@ -86,10 +86,13 @@ def smooth(value, weight=0.85): #weight是平滑度，tensorboard 默认0.6
     return smoothed
 
 # 指定 event 文件的路徑
-event_files = ["./0514/May13_09-10-38_ws2020_DQN/events.out.tfevents.1683961838.ws2020", \
-               "./0514/May12_15-23-09_d84979fad1fc_DDQN/events.out.tfevents.1683897789.d84979fad1fc", \
-               "./0514/May12_15-18-04_ws2030_C51/events.out.tfevents.1683897484.ws2030"]
+# event_files = ["./0514/May13_09-10-38_ws2020_DQN/events.out.tfevents.1683961838.ws2020", \
+#                "./0514/May12_15-23-09_d84979fad1fc_DDQN/events.out.tfevents.1683897789.d84979fad1fc", \
+#                "./0514/May12_15-18-04_ws2030_C51/events.out.tfevents.1683897484.ws2030"]
 
+event_files = ["./0516/events.out.tfevents.1684076654.ws2030", \
+               "./0516/events.out.tfevents.1684072538.d84979fad1fc", \
+               "./0516/events.out.tfevents.1684072295.3742946e008f"]
 # 設定圖表的樣式
 plt_themes = ["seaborn-darkgrid", "ggplot", "dark_background", "bmh", "fivethirtyeight"]
 plt.style.use(plt_themes[0])
@@ -203,7 +206,7 @@ for i, event_file in enumerate(event_files):
             axs[0, 1].set_xlabel("Step")
             axs[0, 1].set_ylabel("Reward")
             axs[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
-            data_box.append(value)
+            
         elif tag == "trained-model/loss_log/":
             axs[1, 0].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[1, 0].set_xlabel("Step")
@@ -215,6 +218,7 @@ for i, event_file in enumerate(event_files):
             axs[1, 1].set_xlabel("Step")
             axs[1, 1].set_ylabel("Reward")
             axs[1, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper right')
+            data_box.append(value)
         elif tag == "tested-model/test_step_reward/":
             axs[2, 0].plot(steps, value, label=Log[i], color=color[i], marker='o', linestyle=linestyle[i], linewidth=0.5, markersize=0.5)
             axs[2, 0].set_xlabel("Step")
@@ -251,7 +255,7 @@ plt.title('Box Plot')
 plt.xlabel('DRL')
 plt.ylabel('Reward')
 
-plt.savefig('plot_tensorborad_log_train_Box_Plot.png', dpi=300)
+plt.savefig('plot_tensorborad_log_train_Box_Plot_Episode_Return.png', dpi=300)
 # 顯示圖形
 plt.show()
 # '''

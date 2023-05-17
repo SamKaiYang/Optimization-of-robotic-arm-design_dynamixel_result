@@ -13,7 +13,7 @@ from openpyxl.utils import get_column_letter
                 #    names=['ratio', 'torque', 'consuption', 'reachable', 'manipulator', 'axis2', 'axis3', 'all_length',\
                 #            'nan', 'reward', 'nan', 'motor2', 'motor3'])
 # 設定要讀取的檔案路徑和開頭字串
-file_path = './0514/c51_tested_reward_state'
+file_path = './0514/c51_tested_reward_state_100'
 file_prefix = 'tested_reward_state_'  # 或者是其他開頭字串 # 1-A-10
 
 # 獲取符合開頭字串的所有檔案路徑
@@ -169,11 +169,7 @@ for _ in range(len(file_list)):
 
 file_name_optimal_design = "./tested_state_c51_optimal_design.xlsx"
 optimal_design.save(file_name_optimal_design)
-print('total_reachable_diff: %.2f' % (total_reachable_diff/(count_a+count_b)))
-print('total_manipulator_diff: %.5f' %  (total_manipulator_diff/(count_a+count_b)))
-print('total_power_consumption_diff: %.2f' %  (total_power_consumption_diff/(count_b)))
-print('total_ratio_diff: %.2f' %  (total_ratio_diff/(count_b)))
-print('total_torque_diff: %.2f' %  (total_torque_diff/(count_b)))
+
 
 print('原設計平均可達性:%.2f' % (total_reachable_ori/(count_a+count_b)))
 print('原設計平均可操控性:%.5f' % (total_manipulator_ori/(count_a+count_b)))
@@ -186,3 +182,11 @@ print('最佳平均可操控性:%.5f' % (total_manipulator_best/(count_a+count_b
 print('最佳平均功耗:%.2f' % (total_power_consumption_best/(count_b)))
 print('最佳平均ratio:%.2f' % (total_ratio_best/(count_b)))
 print('最佳平均torque:%.2f' % (total_torque_best/(count_b)))
+
+print('total_reachable_diff: %.2f' % (total_reachable_diff/(count_a+count_b)))
+print('total_manipulator_diff: %.5f' %  (total_manipulator_diff/(count_a+count_b)))
+print('total_power_consumption_diff: %.2f' %  (total_power_consumption_diff/(count_b)))
+print('total_ratio_diff: %.2f' %  (total_ratio_diff/(count_b)))
+print('total_torque_diff: %.2f' %  (total_torque_diff/(count_b)))
+
+
