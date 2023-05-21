@@ -50,3 +50,7 @@ print("3:",theta3)
 print("4:",theta4)
 print("5:",theta5)
 print("6:",theta6)
+
+x = 4
+x = max(-30, min(x, 30))
+print("x:",x)

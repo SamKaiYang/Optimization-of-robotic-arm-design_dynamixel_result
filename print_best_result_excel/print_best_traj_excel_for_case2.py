@@ -23,7 +23,7 @@ import os
 ###　test 4
 todo_show_flag = False
 data = '0514'
-case_name = '/c51_tested_state_traj_100'
+case_name = '/ddqn_tested_state_traj'
 # 讀取Excel檔案
 with open('muti_mission_input.yaml', 'r') as f:
         config = yaml.load(f, Loader=yaml.Loader)

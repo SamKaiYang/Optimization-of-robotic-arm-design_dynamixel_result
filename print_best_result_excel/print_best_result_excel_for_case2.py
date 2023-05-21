@@ -13,7 +13,7 @@ from openpyxl.utils import get_column_letter
                 #    names=['ratio', 'torque', 'consuption', 'reachable', 'manipulator', 'axis2', 'axis3', 'all_length',\
                 #            'nan', 'reward', 'nan', 'motor2', 'motor3'])
 # 設定要讀取的檔案路徑和開頭字串
-file_path = './0514/c51_tested_reward_state_100'
+file_path = './0516/ddqn_tested_reward_state_0521'
 file_prefix = 'tested_reward_state_'  # 或者是其他開頭字串 # 1-A-10
 
 # 獲取符合開頭字串的所有檔案路徑
@@ -51,8 +51,8 @@ optimal_design = Workbook()
 sheet_optimal_design = optimal_design.active
 i = 0
 
-count_a = 1
-count_b = 1
+count_a = 0
+count_b = 0
 for _ in range(len(file_list)):
         df_sorted = df_list[_].sort_values(by=['reward','reachable', 'manipulator', 'consuption'], ascending=[False, False, False, True])
         print('file_list:',file_list[_])

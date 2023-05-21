@@ -91,8 +91,8 @@ def smooth(value, weight=0.85): #weight是平滑度，tensorboard 默认0.6
 #                "./0514/May12_15-18-04_ws2030_C51/events.out.tfevents.1683897484.ws2030"]
 
 event_files = ["./0516/events.out.tfevents.1684076654.ws2030", \
-               "./0516/events.out.tfevents.1684072538.d84979fad1fc", \
-               "./0516/events.out.tfevents.1684072295.3742946e008f"]
+               "./0516/events.out.tfevents.1684233906.d84979fad1fc", \
+               "./0516/events.out.tfevents.1684233466.3742946e008f"]
 # 設定圖表的樣式
 plt_themes = ["seaborn-darkgrid", "ggplot", "dark_background", "bmh", "fivethirtyeight"]
 plt.style.use(plt_themes[0])
