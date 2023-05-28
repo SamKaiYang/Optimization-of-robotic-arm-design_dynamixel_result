@@ -93,7 +93,7 @@ for _ in range(len(file_list)):
         
         i = i + 1 
         # 與原設計比較
-        f_ori = "tested_state_original_design.xlsx"
+        f_ori = "tested_state_original_design_case3.xlsx"
         ori_df = pd.read_excel(f_ori,header=None, \
                         names=['mission_name', 'ratio','torque', 'consuption', 'reachable', 'manipulator', 'axis2', 'axis3',\
                                 'motor2', 'motor3'])
