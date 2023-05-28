@@ -5,6 +5,8 @@ from openpyxl.comments import Comment
 from openpyxl.drawing.image import Image
 from openpyxl.styles import Alignment, Font, colors
 from openpyxl.utils import get_column_letter
+import re
+
 # 读取Excel文件
 # df = pd.read_excel('C51-6-variable-20230508-193940/tested_reward_state_1-A-10.xlsx', header=None, \
                 #    names=['ratio', 'torque', 'consuption', 'reachable', 'manipulator', 'axis2', 'axis3', 'all_length',\
@@ -13,17 +15,19 @@ from openpyxl.utils import get_column_letter
                 #    names=['ratio', 'torque', 'consuption', 'reachable', 'manipulator', 'axis2', 'axis3', 'all_length',\
                 #            'nan', 'reward', 'nan', 'motor2', 'motor3'])
 # 設定要讀取的檔案路徑和開頭字串
-file_path = './0521/ddqn_tested_reward_state_0521_v2'
+file_path = './0527/ddqn_tested_reward_state_0527/ALL'
 file_prefix = 'tested_reward_state_'  # 或者是其他開頭字串 # 1-A-10
 
 # 獲取符合開頭字串的所有檔案路徑
 file_list = [os.path.join(file_path, f) for f in os.listdir(file_path) if f.startswith(file_prefix)]
-print('file_list:',file_list)
+# print('file_list:',file_list)
 
 # Use list comprehension to extract the parts from the file names
 parts_list = [file_name.split('/')[-1].split('.')[0].split('_')[-1] for file_name in file_list]
+# parts_list = [file_name.split('_')[-1].split('.')[0] for file_name in file_list]
+# parts_list = [re.search(r'_([\d.-]+)\.xlsx$', file_name).group(1) for file_name in file_list if re.search(r'_([\d.-]+)\.xlsx$', file_name)]
 
-print(parts_list)
+# print('parts_list:',parts_list)
 
 df_list = [pd.read_excel(f,header=None, \
                    names=['torque', 'consuption', 'reachable', 'manipulator', 'axis2', 'axis3', 'torque_sum'\
@@ -57,11 +61,16 @@ for _ in range(len(file_list)):
         df_sorted = df_list[_].sort_values(by=['reward','reachable', 'manipulator', 'consuption'], ascending=[False, False, False, True])
         print('file_list:',file_list[_])
         print('parts_list:',parts_list[_])
-        # 打印排序后的DataFrame，以确认最佳值
-        print(df_sorted)
+        # if parts_list[_] == '0':
+        #         file_name = file_list[_].split('/')[-1]  # 获取文件名
+        #         result = re.search(r'(\d+\.\d+-C-\d+)', file_name).group(1)
+        #         print('result:',result)
 
-        # 访问最佳值的行和列
-        print(df_sorted.iloc[0].transpose())
+        # 打印排序后的DataFrame，以确认最佳值
+        # print(df_sorted)
+
+        # # 访问最佳值的行和列
+        # print(df_sorted.iloc[0].transpose())
         best_reachable = df_sorted.iloc[0]['reachable']
         best_manipulator = df_sorted.iloc[0]['manipulator']
         best_power_consumption = df_sorted.iloc[0]['consuption']
@@ -165,7 +174,8 @@ for _ in range(len(file_list)):
 
 
         else:
-                print(f'The search value "{search_value}" was not found in the first row.')
+                pass
+                # print(f'The search value "{search_value}" was not found in the first row.')
 
 file_name_optimal_design = "./tested_state_ddqn_optimal_design.xlsx"
 optimal_design.save(file_name_optimal_design)
