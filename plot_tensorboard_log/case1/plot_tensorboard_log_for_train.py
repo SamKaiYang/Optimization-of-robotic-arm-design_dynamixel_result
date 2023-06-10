@@ -94,8 +94,10 @@ def smooth(value, weight=0.85): #weight是平滑度，tensorboard 默认0.6
 #                "./0516/events.out.tfevents.1684233906.d84979fad1fc", \
 #                "./0516/events.out.tfevents.1684233466.3742946e008f"]
 
-event_files = ["./0514/May13_09-10-38_ws2020_DQN/events.out.tfevents.1683961838.ws2020", \
-               "./0514/May12_15-23-09_d84979fad1fc_DDQN/events.out.tfevents.1683897789.d84979fad1fc"]
+event_files = ["./Jun02_05-56-40_DQN/events.out.tfevents.1685678200.3742946e008f", \
+    "./Jun02_05-57-46_DDQN/events.out.tfevents.1685678266.713365703a57", \
+               "./Jun02_06-04-35_C51/events.out.tfevents.1685678675.ws2020"]
+
 
 # 設定圖表的樣式
 plt_themes = ["seaborn-darkgrid", "ggplot", "dark_background", "bmh", "fivethirtyeight"]
@@ -313,7 +315,7 @@ for i, event_file in enumerate(event_files):
 # '''
 
 
-labels = ['DQN', 'DDQN']
+labels = ['DQN', 'DDQN', 'C51']
 # 確保標籤名稱與資料的長度相同
 print(len(data_box))
 assert len(labels) == len(data_box), "Dimensions of labels and data must be compatible"
@@ -337,7 +339,7 @@ plt.savefig('plot_tensorborad_log_train_Box_Plot_Episode_Return.png', dpi=300)
 # 顯示圖形
 plt.show()
 # '''
-labels = ['DQN', 'DDQN']
+labels = ['DQN', 'DDQN', 'C51']
 # 確保標籤名稱與資料的長度相同
 print(len(data_box_step))
 assert len(labels) == len(data_box_step), "Dimensions of labels and data must be compatible"
