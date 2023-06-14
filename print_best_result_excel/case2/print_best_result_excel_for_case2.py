@@ -16,8 +16,8 @@ import re
                 #            'nan', 'reward', 'nan', 'motor2', 'motor3'])
 # 設定要讀取的檔案路徑和開頭字串
 # file_path = './3dof/DDQN-3-variable-20230521-064836/models/tested_reward_state'
-file_path = './0612/ddqn_tested_reward_state_20230611-204326'
-# file_path = './0612/dqn_tested_reward_state_20230612-095213'
+# file_path = './0612/ddqn_tested_reward_state_20230611-204326'
+file_path = './0612/dqn_tested_reward_state_20230612-095213'
 file_prefix = 'tested_reward_state_'  # 或者是其他開頭字串 # 1-A-10
 
 # 獲取符合開頭字串的所有檔案路徑
@@ -179,7 +179,7 @@ for _ in range(len(file_list)):
                 pass
                 # print(f'The search value "{search_value}" was not found in the first row.')
 
-file_name_optimal_design = "./tested_state_ddqn_optimal_design_case2_0612.xlsx"
+file_name_optimal_design = "./tested_state_dqn_optimal_design_case2_0612.xlsx"
 optimal_design.save(file_name_optimal_design)
 
 

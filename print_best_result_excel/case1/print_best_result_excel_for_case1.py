@@ -8,7 +8,7 @@ from openpyxl.utils import get_column_letter
 import re
 
 # 設定要讀取的檔案路徑和開頭字串
-file_path = './DDQN-6-variable-20230602-055743/models/tested_reward_state'
+file_path = './0612/dqn_tested_reward_state_20230612-095410'
 file_prefix = 'tested_reward_state_'  # 或者是其他開頭字串 # 1-A-10
 
 # 獲取符合開頭字串的所有檔案路徑
@@ -113,7 +113,7 @@ for _ in range(len(file_list)):
                 pass
                 # print(f'The search value "{search_value}" was not found in the first row.')
 
-file_name_optimal_design = "./tested_state_ddqn_optimal_design_case1_v3.xlsx"
+file_name_optimal_design = "./tested_state_dqn_optimal_design_case1_real.xlsx"
 optimal_design.save(file_name_optimal_design)
 
 
