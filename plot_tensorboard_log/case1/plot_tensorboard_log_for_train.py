@@ -94,10 +94,12 @@ def smooth(value, weight=0.85): #weight是平滑度，tensorboard 默认0.6
 #                "./0516/events.out.tfevents.1684233906.d84979fad1fc", \
 #                "./0516/events.out.tfevents.1684233466.3742946e008f"]
 
-event_files = ["./Jun02_05-56-40_DQN/events.out.tfevents.1685678200.3742946e008f", \
-    "./Jun02_05-57-46_DDQN/events.out.tfevents.1685678266.713365703a57", \
-               "./Jun02_06-04-35_C51/events.out.tfevents.1685678675.ws2020"]
-
+# event_files = ["./Jun02_05-56-40_DQN/events.out.tfevents.1685678200.3742946e008f", \
+#     "./Jun02_05-57-46_DDQN/events.out.tfevents.1685678266.713365703a57", \
+#                "./Jun02_06-04-35_C51/events.out.tfevents.1685678675.ws2020"]
+event_files = ["./0611_retrain/dqn_Jun11_15-08-36_713365703a57/events.out.tfevents.1686488916.713365703a57", \
+               "./0611_retrain/ddqn_Jun11_15-06-29_ws2030/events.out.tfevents.1686488789.ws2030", \
+               "./0611_retrain/c51_Jun12_14-02-29_3742946e008f/events.out.tfevents.1686571349.3742946e008f"]
 
 # 設定圖表的樣式
 plt_themes = ["seaborn-darkgrid", "ggplot", "dark_background", "bmh", "fivethirtyeight"]
